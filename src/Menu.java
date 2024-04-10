@@ -1,10 +1,3 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.text.Format;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,18 +10,20 @@ public class Menu {
 
         while (!sair) {
             String menu = """
-                    
-                    Seja bem vindo/a ao Conversor de Moeda
+                                        
+                    Seja bem vindo(a) ao Conversor de Moeda
                     ****************************************
-                    1) Dólar            => Peso Argentino
-                    2) Peso Argentino   => Dólar
-                    3) Dólar            => Real
-                    4) Real             => Dólar
-                    5) Dólar            => Peso Colombiano
-                    6) Peso Colombiano  => Dólar
-                    7) Euro             => Real
-                    8) Real             => Euro
-                    9) Sair do Sistema
+                    1)  Dólar            => Peso Argentino
+                    2)  Peso Argentino   => Dólar
+                    3)  Dólar            => Real
+                    4)  Real             => Dólar
+                    5)  Dólar            => Peso Colombiano
+                    6)  Peso Colombiano  => Dólar
+                    7)  Euro             => Real
+                    8)  Real             => Euro
+                    9)  Listar Cotações da sessão
+                    10) Listar Log
+                    11) Sair do Sistema
                     Escolha uma opção válida:
                     ****************************************""";
 
@@ -72,17 +67,24 @@ public class Menu {
                         moedaPara = "EUR";
                         break;
                     case (9):
+                        ImprimeCotacao.imprimiLog();
+                        break;
+                    case (10):
+                        break;
+                    case (11):
                         sair = true;
                         break;
+
                     default:
                         System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
 
                 }
-                if (!sair) {
+                if ((!sair && (opcao != 9 && opcao != 10))) {
                     System.out.println("Digite o valor que deseja converter");
                     double valor = scan.nextDouble();
 
-                    ImprimeCotacao.geraCotacao(moedaDe,moedaPara, valor);
+                    ImprimeCotacao.geraCotacao(moedaDe, moedaPara, valor);
+
 
                 }
 
