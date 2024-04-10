@@ -7,6 +7,8 @@ import java.time.format.DateTimeFormatter;
 public class ImprimeCotacao {
 
     public static void geraCotacao(String moedaDe, String moedaPara, double valor) {
+        String nomeMoedaDe = NomeMoeda.valueOf(moedaDe).getNome();
+        String nomeMoedaPara = NomeMoeda.valueOf(moedaPara).getNome();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String dataFormatada = formatter.format(LocalDate.now());
@@ -17,8 +19,8 @@ public class ImprimeCotacao {
         Double valorConvertido = valor * cotacao.conversion_rate();
 
         System.out.printf("Cotação do dia: %s 1[%s] = %.4f [%s]\n",
-                dataFormatada, moedaDe, cotacao.conversion_rate(), moedaPara);
+                dataFormatada, nomeMoedaDe, cotacao.conversion_rate(), nomeMoedaPara);
         System.out.printf("Valor de %.2f [%s] corresponde ao valor final de => %.2f [%s]\n",
-                valor, moedaDe, valorConvertido, moedaPara);
+                valor, nomeMoedaDe, valorConvertido, nomeMoedaPara);
     }
 }

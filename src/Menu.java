@@ -57,6 +57,7 @@ public class Menu {
                     case (5):
                         moedaDe = "USD";
                         moedaPara = "COP";
+                        break;
                     case (6):
                         moedaDe = "COP";
                         moedaPara = "USD";
