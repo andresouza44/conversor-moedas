@@ -1,3 +1,10 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.text.Format;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -5,6 +12,9 @@ public class Menu {
     public static void menu() {
         Scanner scan = new Scanner(System.in);
         Boolean sair = false;
+        String moedaDe = "";
+        String moedaPara = "";
+
         while (!sair) {
             String menu = """
                     Seja bem vindo/a ao Conversor de Moeda
@@ -25,29 +35,39 @@ public class Menu {
 
             try {
                 int opcao = scan.nextInt();
+
                 switch (opcao) {
                     case (1):
-                        System.out.println(BuscaCotacao.buscarCotacao("USD", "ARS"));
+                        moedaDe = "USD";
+                        moedaPara = "ARS";
                         break;
                     case (2):
-                        System.out.println(BuscaCotacao.buscarCotacao("ARS", "USD"));
+                        moedaDe = "ARS";
+                        moedaPara = "USD";
                         break;
                     case (3):
-                        System.out.println(BuscaCotacao.buscarCotacao("USD", "BRL"));
+                        moedaDe = "USD";
+                        moedaPara = "BRL";
                         break;
                     case (4):
-                        System.out.println(BuscaCotacao.buscarCotacao("BRL", "USD"));
+                        moedaDe = "BRL";
+                        moedaPara = "USD";
                         break;
                     case (5):
-                        System.out.println(BuscaCotacao.buscarCotacao("USD", "COP"));
+                        moedaDe = "USD";
+                        moedaPara = "COP";
                     case (6):
-                        System.out.println(BuscaCotacao.buscarCotacao("COP", "USD"));
+                        moedaDe = "COP";
+                        moedaPara = "USD";
                         break;
+
                     case (7):
-                        System.out.println(BuscaCotacao.buscarCotacao("EUR", "BRL"));
+                        moedaDe = "EUR";
+                        moedaPara = "BRL";
                         break;
                     case (8):
-                        System.out.println(BuscaCotacao.buscarCotacao("BRL", "EUR"));
+                        moedaDe = "BRL";
+                        moedaPara = "EUR";
                         break;
                     case (9):
                         sair = true;
@@ -56,13 +76,34 @@ public class Menu {
                         System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
 
                 }
+                if (!sair) {
+                    System.out.println("Digite o valor que deseja converter");
+                    double valor = scan.nextDouble();
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                    String dataFormatada = formatter.format(LocalDate.now());
+
+
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    String json = BuscaCotacao.buscarCotacao(moedaDe, moedaPara);
+                    Cotacao cotacao = gson.fromJson(json, Cotacao.class);
+                    Double valorConvertido = valor * cotacao.conversion_rate();
+
+                    System.out.printf("Cotação do dia: %s 1[%s] = %.4f [%s]\n",
+                            dataFormatada,moedaDe, cotacao.conversion_rate(), moedaPara);
+                    System.out.printf("Valor de %.2f [%s] corresponde ao valor final de => %.2f [%s]\n",
+                            valor, moedaDe, valorConvertido, moedaPara );
+                }
+
             } catch (InputMismatchException e) {
-                System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
+                System.out.println("Número inválido. Tente Novamente");
                 scan.nextLine();
+
+
             }
         }
 
-
+        scan.close();
     }
 
 }
