@@ -7,15 +7,13 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.List;
 
 import static java.net.http.HttpRequest.newBuilder;
 
 public class BuscaListaMoedas {
-    public static String buscarNomeMoeda(String silgaMoeda) {
+    public static Moedas buscarNomeMoeda() {
         String apiKey = BuscaApikey.getApiKey("api.key");
         String url = "https://v6.exchangerate-api.com/v6/" + apiKey + "/codes";
-
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = newBuilder()
@@ -27,23 +25,13 @@ public class BuscaListaMoedas {
 
             String json = response.body();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
             Moedas moedas = gson.fromJson(json, Moedas.class);
 
-            for (List<String> supportedCode : moedas.supported_codes()) {
-                if (supportedCode.get(0).contains(silgaMoeda)) {
-                    return supportedCode.get(1);
-
-                }
-
-            }
-            return null;
+            return  moedas;
 
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
-
 }
 

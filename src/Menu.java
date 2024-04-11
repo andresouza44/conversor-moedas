@@ -1,5 +1,4 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
     public static void menu() {
@@ -8,9 +7,12 @@ public class Menu {
         String moedaDe = "";
         String moedaPara = "";
 
+        List<Integer> conversoesValidas = Arrays.asList(1, 2, 3, 4, 5, 6);
+
         final int MENU_LISTA_COTACAO=7;
         final int MENU_LISTA_LOG = 8;
         final int OUTRAS_MOEDAS = 9;
+        final int FINALIZAR = 10;
 
         while (!sair) {
             String menu = """
@@ -69,7 +71,7 @@ public class Menu {
                     case OUTRAS_MOEDAS:
                         Menu2.menu();
                         break;
-                    case (10):
+                    case FINALIZAR:
                         sair = true;
                         break;
 
@@ -77,20 +79,31 @@ public class Menu {
                         System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
 
                 }
-                if ((!sair && (opcao != MENU_LISTA_COTACAO && opcao != MENU_LISTA_LOG))) {
+                if(sair){
+                    System.out.println("Programa Finalizado");
+                    System.exit(0);
+                }
+
+                if (conversoesValidas.contains(opcao) ){
+                //if ((!sair && (opcao != MENU_LISTA_COTACAO && opcao != MENU_LISTA_LOG))) {
                     System.out.println("Digite o valor que deseja converter");
                     double valor = scan.nextDouble();
 
                     ImprimeCotacao.geraCotacao(moedaDe, moedaPara, valor);
                 }
 
-            } catch (InputMismatchException e) {
+            } catch ( NoSuchElementException e) {
                 System.out.println("Número inválido. Tente Novamente");
                 scan.nextLine();
 
             }
         }
+
         scan.close();
+        System.out.println("Programa Finalizado");
+        System.exit(0);
+
+
     }
 
 }

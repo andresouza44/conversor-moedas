@@ -35,7 +35,7 @@ public class Menu2 {
 
                 switch (opcao) {
                     case LISTAR_MOEDAS:
-                      BuscaListaMoedasTeste.buscarNomeMoeda()
+                      BuscaListaMoedas.buscarNomeMoeda()
                               .supported_codes().forEach(System.out::println);
                         break;
                     case COTACAO:
@@ -62,11 +62,17 @@ public class Menu2 {
 
                 }
                 if (opcao == COTACAO) {
-                    System.out.println("Digite o valor que deseja converter");
-                    System.out.println("COTAÇÂO TESTE");
-                    //double valor = scan.nextDouble();
+                    scan.nextLine();
+                    System.out.println("Digite a sigla da primeira moeda");
+                    String moedaDe = scan.nextLine().toUpperCase().trim();
 
-                    // ImprimeCotacao.geraCotacao(moedaDe, moedaPara, valor);
+                    System.out.println("Digite a sigla da segunda moeda");
+                    String moedaPara = scan.nextLine().toUpperCase().trim();
+
+                    System.out.println("Digite o valor que deseja converter");
+                    double valor = scan.nextDouble();
+
+                     ImprimeCotacao.geraCotacao(moedaDe, moedaPara, valor);
                 }
 
             } catch (InputMismatchException e) {
