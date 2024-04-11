@@ -1,7 +1,5 @@
 package utils;
 
-import utils.BuscaApikey;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,15 +8,9 @@ import java.net.http.HttpResponse;
 
 import static java.net.http.HttpRequest.newBuilder;
 
-public class BuscaCotacao {
+public class ApiGetRequest {
 
-    public static String buscarCotacao(String moedaDe, String moedaPara) {
-        String apiKey = BuscaApikey.getApiKey("api.key");
-        String url = "https://v6.exchangerate-api.com/v6/" + apiKey + "/pair/"
-                + moedaDe + "/" + moedaPara;
-
-       // String url = "https://v6.exchangerate-api.com/v6/"+apiKey+"/latest/USD";
-
+    public static String apiGetRequest(String url) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = newBuilder()
                 .GET()
@@ -32,8 +24,5 @@ public class BuscaCotacao {
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
 }
