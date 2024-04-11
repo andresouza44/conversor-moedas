@@ -70,6 +70,7 @@ public class Menu {
                         ImprimeCotacao.imprimiLog();
                         break;
                     case (10):
+                        LogUtil.loadLog();
                         break;
                     case (11):
                         sair = true;
@@ -84,18 +85,14 @@ public class Menu {
                     double valor = scan.nextDouble();
 
                     ImprimeCotacao.geraCotacao(moedaDe, moedaPara, valor);
-
-
                 }
 
             } catch (InputMismatchException e) {
                 System.out.println("Número inválido. Tente Novamente");
                 scan.nextLine();
 
-
             }
         }
-
         scan.close();
     }
 
