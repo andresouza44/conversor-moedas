@@ -1,3 +1,5 @@
+import utils.ApiGetRequest;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -35,8 +37,9 @@ public class Menu2 {
 
                 switch (opcao) {
                     case LISTAR_MOEDAS:
-                      BuscaListaMoedas.buscarNomeMoeda()
-                              .supported_codes().forEach(System.out::println);
+                        if(!ImprimeCotacao.buscaNomeMoedas().result().equals("error"))
+                        ImprimeCotacao.buscaNomeMoedas()
+                                .supported_codes().forEach(System.out::println);
                         break;
                     case COTACAO:
                         break;
@@ -71,6 +74,7 @@ public class Menu2 {
 
                     System.out.println("Digite o valor que deseja converter");
                     double valor = scan.nextDouble();
+
 
                      ImprimeCotacao.geraCotacao(moedaDe, moedaPara, valor);
                 }
