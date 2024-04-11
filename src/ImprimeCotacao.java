@@ -12,8 +12,8 @@ public class ImprimeCotacao {
 
     public static void geraCotacao(String moedaDe, String moedaPara, double valor) {
 
-        String nomeMoedaDe = NomeMoeda.valueOf(moedaDe).getNome();
-        String nomeMoedaPara = NomeMoeda.valueOf(moedaPara).getNome();
+        String nomeMoedaDe = buscaNomeMoeda(moedaDe);
+        String nomeMoedaPara = buscaNomeMoeda(moedaPara);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String dataFormatada = formatter.format(LocalDate.now());
@@ -45,4 +45,14 @@ public class ImprimeCotacao {
         }
     }
 
+    public static String buscaNomeMoeda(String siglaMoeda) {
+        Moedas listaMoedas = BuscaListaMoedasTeste.buscarNomeMoeda();
+        for (List<String> supportedCode : listaMoedas.supported_codes()) {
+            if (supportedCode.get(0).contains(siglaMoeda)) {
+                return supportedCode.get(1);
+            }
+        }
+        return null;
+    }
 }
+

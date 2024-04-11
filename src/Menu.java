@@ -8,6 +8,10 @@ public class Menu {
         String moedaDe = "";
         String moedaPara = "";
 
+        final int MENU_LISTA_COTACAO=7;
+        final int MENU_LISTA_LOG = 8;
+        final int OUTRAS_MOEDAS = 9;
+
         while (!sair) {
             String menu = """
                                         
@@ -17,13 +21,12 @@ public class Menu {
                     2)  Peso Argentino   => Dólar
                     3)  Dólar            => Real
                     4)  Real             => Dólar
-                    5)  Dólar            => Peso Colombiano
-                    6)  Peso Colombiano  => Dólar
-                    7)  Euro             => Real
-                    8)  Real             => Euro
-                    9)  Listar Cotações da sessão
-                    10) Listar Log
-                    11) Sair do Sistema
+                    5)  Euro             => Real
+                    6)  Real             => Euro
+                    7)  Listar Cotações da sessão
+                    8)  Listar Log
+                    9)  Outras Moedas
+                    10) Sair do Sistema
                     Escolha uma opção válida:
                     ****************************************""";
 
@@ -50,29 +53,23 @@ public class Menu {
                         moedaPara = "USD";
                         break;
                     case (5):
-                        moedaDe = "USD";
-                        moedaPara = "COP";
-                        break;
-                    case (6):
-                        moedaDe = "COP";
-                        moedaPara = "USD";
-                        break;
-
-                    case (7):
                         moedaDe = "EUR";
                         moedaPara = "BRL";
                         break;
-                    case (8):
+                    case (6):
                         moedaDe = "BRL";
                         moedaPara = "EUR";
                         break;
-                    case (9):
+                    case MENU_LISTA_COTACAO:
                         ImprimeCotacao.imprimiLog();
                         break;
-                    case (10):
+                    case MENU_LISTA_LOG:
                         LogUtil.loadLog();
                         break;
-                    case (11):
+                    case OUTRAS_MOEDAS:
+                        Menu2.menu();
+                        break;
+                    case (10):
                         sair = true;
                         break;
 
@@ -80,7 +77,7 @@ public class Menu {
                         System.out.println("Opção inválida! Por favor, escolha uma opção válida.");
 
                 }
-                if ((!sair && (opcao != 9 && opcao != 10))) {
+                if ((!sair && (opcao != MENU_LISTA_COTACAO && opcao != MENU_LISTA_LOG))) {
                     System.out.println("Digite o valor que deseja converter");
                     double valor = scan.nextDouble();
 
